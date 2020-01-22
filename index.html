@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Primes</title>
+    <style>
+      body,
+      html {
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+    <script type="module">
+      function setCanvasSize(c) {
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+      }
+
+      const canvas = document.getElementById('canvas');
+      setCanvasSize(canvas);
+      const ctx = canvas.getContext('2d');
+
+      const cells = 100;
+      function draw() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        const pixels = w * h;
+        const cellSize = Math.sqrt(pixels / cells);
+        const steps = h / cellSize;
+
+        ctx.moveTo(0, 0);
+        for (let i = 0; i <= w; i = i + cellSize) {
+          ctx.beginPath();
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = 'blue';
+          ctx.moveTo(i, 0);
+          ctx.lineTo(w, i);
+          ctx.stroke();
+        }
+
+        ctx.moveTo(0, 0);
+        for (let i = 0; i <= h; i = i + cellSize) {
+          ctx.beginPath();
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = 'blue';
+          ctx.moveTo(0, i);
+          ctx.lineTo(i, h);
+          ctx.stroke();
+        }
+      }
+
+      window.addEventListener('resize', () => {
+        setCanvasSize(canvas);
+        draw();
+      });
+
+      draw();
+    </script>
+  </body>
+</html>
